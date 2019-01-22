@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}Change email{% endblock %}
+
+{% block content %}
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  <h2>Edit your profile</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+
+{% endblock %}

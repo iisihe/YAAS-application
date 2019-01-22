@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Add Auction</h2>
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+
+
+    <form action="{% url 'add_auction' %}" method="post">
+        {% csrf_token %}
+         {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

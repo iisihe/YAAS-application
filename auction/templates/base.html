@@ -1,0 +1,53 @@
+{% load i18n %}
+<html>
+<style type= "text/css">
+    body {padding: 0 5em; margin:0}
+    h1 {padding: 1em 1em;}
+    h2 {border-top: 1px dotted #fff; margin-top: 2em}
+    p {margin: 1em 0}
+</style>
+<body>
+<h1>{% trans "Auctions" %}</h1>
+
+    <br>
+    <b><a href="{% url 'home' %}">{% trans "Auctions" %}</a> </b>
+    <a href="{% url 'add_auction' %}">{% trans "Add a new auction" %}</a>
+    <a href="{% url 'your_auctions' %}">{% trans "Your auctions" %}</a>
+
+    <br>
+
+
+
+        {% if user.is_authenticated %}
+
+            <br>
+
+            {% trans "Hello" %} {{ user.username }}!
+            <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            <br>
+            <a href="{% url 'change_email' %}">{% trans "Edit your profile and change language" %}</a>
+            <br>
+            {% if request.user.is_staff %}
+                <br>
+                <a href="{% url 'email_history' %}">{% trans "Emailhistory" %}</a>
+                <br>
+                <a href="{% url 'all_auctions' %}">{% trans "Manage all auctions" %}</a>
+            {% endif %}
+
+        {% else %}
+            <p>{% trans "You are not logged in." %}</p>
+            <a href="{% url 'login' %}">{% trans "Login" %}</a>
+            <a href="{% url 'registration' %}">{% trans "Registration" %}</a>
+            <br>
+            <a href="{% url 'language_change' %}">{% trans "Change language" %}</a>
+            <br>
+        {% endif %}
+
+    <br>
+
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

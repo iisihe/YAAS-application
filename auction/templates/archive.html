@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+    <br>
+    <form method="GET" action="{% url 'search' %}">
+        <div class="form-inline">
+            <input type="text" placeholder="Search item by title" name="search" class="form-control" required="required" />
+            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> Search</button>
+        </div>
+    </form>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% elif empty%}
+        <p>{% trans "No auctions" %}<p>
+    {% endif %}
+
+{% for auction in auctions %}
+    {%  if auction.state == 'active' %}
+        <h2>{{ auction.title }}</h2>
+        <p>{% trans "Description: " %} {{ auction.description }}</p>
+        <p>{% trans "Minimum price: " %} {{ auction.minPrice }} EUR ({{ auction.minPriceUSD|floatformat:2 }} USD)</p>
+        <p>{% trans "Deadline: " %} {{ auction.deadline }}</p>
+        <p>{% trans "Seller: " %} {{ auction.seller }}</p>
+        <p>{% trans "State: " %} {{ auction.state }}</p>
+        <p>{% trans "Highest bid: " %} {{ auction.highestBid }} EUR ({{ auction.highestBidUSD|floatformat:2 }} USD)</p>
+        {%  if user.is_authenticated %}
+            <a href="{% url 'bid_auction' auction.id %}">{% trans "Bid auction" %}</a>
+        {% endif %}
+
+    {% endif %}
+
+{% empty %}
+    <p>{% trans "No auctions" %}<p>
+{%  endfor %}
+{% endblock %}

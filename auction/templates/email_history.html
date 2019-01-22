@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<h2>History of sent emails:</h2>
+
+{% for content in contents %}
+    <p>{{ content }}</p>
+{% empty %}
+    <p>No emailhistory<p>
+{%  endfor %}
+{% endblock %}

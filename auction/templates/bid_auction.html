@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+    <h2>Bid Auction: {{ title }}</h2>
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    <form action="{% url 'bid_auction' id %}" method="post">
+        {%  csrf_token %}
+        <p>Title: {{ title }}</p>
+        <p>Seller: {{ seller }}</p>
+        <p>Deadline: {{ deadline }}</p>
+        <p>Minimum price: {{ minprice }} EUR ({{ minPriceUSD|floatformat:2 }} USD)</p>
+        <p>Description: {{ description }}</p>
+        <p>Highest Bid: {{ highestBid }} EUR ({{ highestBidUSD|floatformat:2 }} USD)</p>
+        <input type="number" title="newBid" name="newBid" value={{ highestBid }} step="0.01">
+        <input type="submit" value="Bid in EUR">
+        <input type="hidden" name="version" value="{{ version }}">
+    </form>
+{% endblock %}

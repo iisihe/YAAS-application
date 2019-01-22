@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<h2>Your Auctions:</h2>
+
+{% for auction in auctions %}
+    {%  if auction.seller == user %}
+    <h2>{{ auction.title }}</h2>
+    {%  if auction.state == 'active' %}
+        <a href="{% url 'edit_auction' auction.id %}">Edit auction</a>
+    {% endif %}
+    <p>Description: {{ auction.description }}</p>
+    <p>Minimum price: {{ auction.minPrice }}</p>
+    <p>Deadline: {{ auction.deadline }}</p>
+    <p>Seller: {{ auction.seller }}</p>
+    <p>State: {{ auction.state }}</p>
+    <p>UniqueId: {{ auction.uniqueId }}</p>
+    {% endif %}
+
+{% empty %}
+    <p>No auctions<p>
+{%  endfor %}
+{% endblock %}

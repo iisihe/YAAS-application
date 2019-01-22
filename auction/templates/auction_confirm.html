@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+<h2> Add Auction</h2>
+{% block content %}
+
+<p><b>Are you sure you want to confirm this auction?</b> {{ auction_title }} </p>
+
+    <b>{{b_title}}</b>
+
+    <form action="{% url 'auction_confirm' %}" method="post">
+        {% csrf_token %}
+         {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+
+{% endblock %}

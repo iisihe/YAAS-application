@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+
+<h2>Active auctions:</h2>
+{% for auction in auctions %}
+    {%  if auction.state == 'active' %}
+        <h4>Title: {{ auction.title }}</h4>
+        <p>Description: {{ auction.description }}</p>
+        <p>Minimum price: {{ auction.minPrice }}</p>
+        <p>Deadline: {{ auction.deadline }}</p>
+        <p>Seller: {{ auction.seller }}</p>
+        <p>State: {{ auction.state }}</p>
+        <a href="{% url 'ban_auction' auction.id %}">Ban auction</a>
+    {% endif %}
+{%  endfor %}
+
+<br>
+<h2>Due auctions:</h2>
+{% for auction in auctions %}
+    {%  if auction.state == 'due' %}
+        <h4>Title: {{ auction.title }}</h4>
+        <p>Description: {{ auction.description }}</p>
+        <p>Minimum price: {{ auction.minPrice }}</p>
+        <p>Deadline: {{ auction.deadline }}</p>
+        <p>Seller: {{ auction.seller }}</p>
+        <p>State: {{ auction.state }}</p>
+    {% endif %}
+{%  endfor %}
+
+<br>
+<h2>Adjudicated auctions:</h2>
+{% for auction in auctions %}
+    {%  if auction.state == 'adjudicated' %}
+        <h4>Title: {{ auction.title }}</h4>
+        <p>Description: {{ auction.description }}</p>
+        <p>Minimum price: {{ auction.minPrice }}</p>
+        <p>Deadline: {{ auction.deadline }}</p>
+        <p>Seller: {{ auction.seller }}</p>
+        <p>State: {{ auction.state }}</p>
+    {% endif %}
+{%  endfor %}
+
+<br>
+<h2>Banned auctions:</h2>
+{% for auction in auctions %}
+    {%  if auction.state == 'banned' %}
+        <h4>Title: {{ auction.title }}</h4>
+        <p>Description: {{ auction.description }}</p>
+        <p>Minimum price: {{ auction.minPrice }}</p>
+        <p>Deadline: {{ auction.deadline }}</p>
+        <p>Seller: {{ auction.seller }}</p>
+        <p>State: {{ auction.state }}</p>
+    {% endif %}
+{%  endfor %}
+
+{% endblock %}

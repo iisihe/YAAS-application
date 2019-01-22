@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Edit your auction{% endblock %}
+
+{% block content %}
+
+<p><b>Edit Auction: {{ title }}</b></p>
+    {% if user.is_authenticated %}
+        <form action="{% url 'edit_auction' id %}" method="post">
+    {% else %}
+        <form action="{% url 'edit_auction_link' uniqueId %}" method="post">
+    {% endif %}
+        {%  csrf_token %}
+       <p>Title: {{ title }}</p>
+        <p>Seller: {{ seller }}</p>
+        <p>Deadline: {{ deadline }}</p>
+        <p>Minimum price: {{ minprice }}</p>
+       <p>Description: <textarea name="description" cols="50" rows="20">{{ description }}</textarea></p>
+        <input type="submit" value="Change">
+    </form>
+
+{% endblock %}
